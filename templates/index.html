@@ -1,0 +1,33 @@
+<!-- {% include 'main.html' %} -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Passport Photo Maker</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  </head>
+
+  <body>
+    <h1>Passport Photo Maker</h1>
+    <form action="/upload/" method="post" enctype="multipart/form-data">
+      <input type="file" name="file" accept=".jpg, .jpeg, .png" required>
+      <input type="submit" value="Upload">
+    </form>
+
+    {% if filename %}
+    <h2>Uploaded Image:</h2>
+    <img src="/static/uploads/{{ filename }}" alt="Uploaded Image" width="400">
+
+    <a href="/process/{{filename}}">
+        <button>Process Image</button>
+    </a>
+    {% endif %}
+
+
+    {% if processed_image %}
+    <h2>Passport Image:</h2>
+    <img src="/static/downloads/{{ processed_image }}" alt="Passport Image" width="400">
+
+    <a href="/download/{{processed_image}}">
+        <button>Download Image</button>
+    </a>
+    {% endif %}
