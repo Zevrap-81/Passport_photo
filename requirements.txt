@@ -7,4 +7,4 @@ mediapipe
 imutils
 uvicorn
 python-multipart
-# 192.168.0.106
+gdown
