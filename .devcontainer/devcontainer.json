@@ -1,0 +1,25 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/python
+{
+	"name": "MyTerminal",
+	"dockerComposeFile": "docker-compose.yml",
+	"service": "my_terminal",
+	"customizations": {
+		// Configure properties specific to VS Code.
+		"vscode": {
+			// Set *default* container specific settings.json values on container create.
+			"settings": {
+				"python.pythonPath": "/usr/local/bin/python"
+			},
+			"extensions": [
+			"ms-python.python",
+			"ms-python.vscode-pylance",
+			"ms-python.black", 
+		    "visualstudioexptteam.vscodeintellicode-completions"]
+		}
+	},
+
+	"workspaceFolder": "/passport_photo/",
+	"postCreateCommand": "bash .devcontainer/postcreate.sh",
+	"remoteUser": "root"
+}

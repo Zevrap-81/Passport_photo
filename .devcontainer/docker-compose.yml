@@ -1,0 +1,13 @@
+version: '3'
+services: 
+  my_terminal:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    # image: "my_terminal-my_terminal:latest"
+    runtime: nvidia
+    command: /bin/bash -c "tail -f /dev/null"
+    ports:
+      - 8000:8000
+    volumes:
+      - ..:/passport_photo

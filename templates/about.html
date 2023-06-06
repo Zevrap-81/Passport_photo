@@ -1,0 +1,26 @@
+{% extends "main.html" %}
+
+{% block title %}About - Passport Photo Maker{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="jumbotron text-left">
+      <h1 class="display-4">About</h1>
+      <p class="lead">Welcome to the Passport Photo Maker, an AI-powered tool that helps you create high-quality passport photos.</p>
+      <hr class="my-4">
+      <div class="text-left">
+        <p>Our app utilizes advanced algorithms to analyze and process your uploaded photos, ensuring they meet the specifications required for passport photos.</p>
+        <p>More concretely we use algorithms such as U2Net for removing background and Google's Mediapipe for tracking facial orientation</p>
+        <p>Key Features:</p>
+        <ul>
+            <li>Upload your photo and receive a processed passport photo in seconds</li>
+            <li>Automatic cropping and adjustment to meet official passport photo guidelines</li>
+            <li>Download your processed photo and print it directly or save it for online submissions</li>
+            <li>Simple and intuitive user interface for easy photo processing</li>
+        </ul>
+      <p>Whether you need a passport photo for travel, identification, or any other purpose, our app makes it quick and convenient to generate compliant photos from the comfort of your own home.</p>
+    </div>
+    <p>Thank you for using the Passport Photo App. If you have any questions or feedback, please don't hesitate to contact us.</p>
+    </div>
+  </div>
+{% endblock %}
