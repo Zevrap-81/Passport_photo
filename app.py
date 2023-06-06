@@ -53,7 +53,8 @@ def process_file(request: Request, filename: str):
     output_image = transformer.transform(input_image)
 
     output_path = os.path.join("static/downloads", filename)
-    output_image.save(output_path)
+    # output_image.save(output_path)
+    cv2.imwrite(output_path, output_image[:, :, ::-1])
 
     return templates.TemplateResponse(
         "index.html", {"request": request, "processed_image": filename}

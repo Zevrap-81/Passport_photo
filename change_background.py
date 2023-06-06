@@ -46,7 +46,7 @@ class ChangeBackground:
         mask = mask.resize((image.size), resample=Image.BILINEAR)
         return mask
 
-    def __call__(self, image: np.ndarray, background_image: Image.Image) -> Image.Image:
+    def __call__(self, image: np.ndarray, background_image: np.ndarray) -> Image.Image:
         image = Image.fromarray(image)
         background_image = Image.fromarray(background_image)
         background_image = background_image.resize((image.size), resample=Image.NEAREST)

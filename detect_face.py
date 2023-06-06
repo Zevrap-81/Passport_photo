@@ -71,12 +71,13 @@ class TransformImageToPassportSpecs:
     def transform(self, image: np.ndarray) -> Image.Image:
         """Transforms image to passport specs"""
 
-        image = self.straghten_face(image)
-        image = self.crop(image)
         background_image = cv2.imread(
             f"/passport_photo/photos/backgrounds/{self.passport_spec.background_color}.png"
         )[:, :, ::-1]
         image = self.change_backgound(image, background_image)
+        image = self.straghten_face(image)
+        image = self.crop(image)
+        image = self.match_aspect(image)
         return image
 
     def straghten_face(self, image: np.ndarray) -> np.ndarray:
@@ -103,7 +104,7 @@ class TransformImageToPassportSpecs:
         alpha3 = math.degrees(math.atan2(dy, dx))
         alpha3 = 90 - alpha3
 
-        alpha = (alpha1 + alpha2 + alpha3) / 3
+        alpha = (alpha3 + alpha2 + alpha3) / 3
         rotated_image = imutils.rotate(image, alpha)
         return rotated_image
 
@@ -149,16 +150,18 @@ class TransformImageToPassportSpecs:
 
     def change_backgound(
         self, image: np.ndarray, backgound_image: np.ndarray
-    ) -> Image.Image:
+    ) -> np.ndarray:
         """change backgound to the given background"""
-        return self.background_changer(image, backgound_image)
+        image = self.background_changer(image, backgound_image)
+        return np.asarray(image)
 
-    def match_aspect(self, image: Image.Image) -> Image.Image:
+    def match_aspect(self, image: np.ndarray) -> np.ndarray:
         # get the maximum size possible
         new_width, new_height = max_img_size(
-            *new_image.shape[0:2], self.passport_spec.aspect
+            *image.shape[0:2], self.passport_spec.aspect
         )
-        return image.resize((new_width, new_height), Image.BILINEAR)
+        # return image.resize((new_width, new_height), Image.BILINEAR)
+        return cv2.resize(image, (new_width, new_height), interpolation=2)
 
     def get_keypoints_px(
         self, detector_result, width: int, height: int
@@ -191,5 +194,8 @@ if __name__ == "__main__":
     image = cv2.imread("/passport_photo/photos/child.png")
     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
     transformed_image = transformer.transform(image)
-    plt.imshow(transformed_image)
-    plt.show()
+    cv2.imwrite(
+        "/passport_photo/photos/child_transformed.png", transformed_image[:, :, ::-1]
+    )
+    # plt.imshow(transformed_image)
+    # plt.show()
